@@ -1,7 +1,9 @@
 package com.example.proyecto.service;
 
 import com.example.proyecto.entities.Maquina;
+import com.example.proyecto.entities.TipoMaquina;
 import com.example.proyecto.repositories.MaquinaRepository;
+import com.example.proyecto.repositories.TipoMaquinaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +13,14 @@ import java.util.Optional;
 public class MaquinaService {
 
     private final MaquinaRepository maquinaRepository;
+    private final TipoMaquinaRepository tipoMaquinaRepository;
 
-    public MaquinaService(MaquinaRepository maquinaRepository) {
+    public MaquinaService(
+            MaquinaRepository maquinaRepository,
+            TipoMaquinaRepository tipoMaquinaRepository) {
+
         this.maquinaRepository = maquinaRepository;
+        this.tipoMaquinaRepository = tipoMaquinaRepository;
     }
 
     public List<Maquina> listarTodas() {
@@ -25,17 +32,36 @@ public class MaquinaService {
     }
 
     public Maquina guardar(Maquina maquina) {
+
+        Long tipoId = maquina.getTipoMaquina().getId();
+
+        TipoMaquina tipo = tipoMaquinaRepository.findById(tipoId)
+                .orElseThrow(() ->
+                        new RuntimeException("Tipo de máquina no encontrado"));
+
+        maquina.setTipoMaquina(tipo);
+
         return maquinaRepository.save(maquina);
     }
 
     public Maquina actualizar(Long id, Maquina maquina) {
 
         Maquina existente = maquinaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Máquina no encontrada"));
+                .orElseThrow(() ->
+                        new RuntimeException("Máquina no encontrada"));
+
+        Long tipoId = maquina.getTipoMaquina().getId();
+
+        TipoMaquina tipo = tipoMaquinaRepository.findById(tipoId)
+                .orElseThrow(() ->
+                        new RuntimeException("Tipo de máquina no encontrado"));
 
         existente.setNombre(maquina.getNombre());
         existente.setModelo(maquina.getModelo());
+        existente.setNumeroSerie(maquina.getNumeroSerie());
+        existente.setFechaCompra(maquina.getFechaCompra());
         existente.setEstado(maquina.getEstado());
+        existente.setTipoMaquina(tipo);
 
         return maquinaRepository.save(existente);
     }

@@ -1,14 +1,10 @@
 package com.example.proyecto.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "maquinas")
-
 public class Maquina {
 
     @Id
@@ -19,16 +15,28 @@ public class Maquina {
 
     private String modelo;
 
+    private String numeroSerie;
+
+    private LocalDate fechaCompra;
+
     private String estado;
+
+    @ManyToOne
+    @JoinColumn(name = "tipo_maquina_id", nullable = false)
+    private TipoMaquina tipoMaquina;
 
     public Maquina() {
     }
 
-    public Maquina(Long id, String nombre, String modelo, String estado) {
+    public Maquina(Long id, String nombre, String modelo, String numeroSerie,
+                   LocalDate fechaCompra, String estado, TipoMaquina tipoMaquina) {
         this.id = id;
         this.nombre = nombre;
         this.modelo = modelo;
+        this.numeroSerie = numeroSerie;
+        this.fechaCompra = fechaCompra;
         this.estado = estado;
+        this.tipoMaquina = tipoMaquina;
     }
 
     public Long getId() {
@@ -55,11 +63,35 @@ public class Maquina {
         this.modelo = modelo;
     }
 
+    public String getNumeroSerie() {
+        return numeroSerie;
+    }
+
+    public void setNumeroSerie(String numeroSerie) {
+        this.numeroSerie = numeroSerie;
+    }
+
+    public LocalDate getFechaCompra() {
+        return fechaCompra;
+    }
+
+    public void setFechaCompra(LocalDate fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
+
     public String getEstado() {
         return estado;
     }
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public TipoMaquina getTipoMaquina() {
+        return tipoMaquina;
+    }
+
+    public void setTipoMaquina(TipoMaquina tipoMaquina) {
+        this.tipoMaquina = tipoMaquina;
     }
 }
