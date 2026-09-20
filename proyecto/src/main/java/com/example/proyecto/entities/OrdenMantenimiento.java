@@ -2,6 +2,8 @@ package com.example.proyecto.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "ordenes_mantenimiento")
 public class OrdenMantenimiento {
@@ -10,9 +12,15 @@ public class OrdenMantenimiento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String tipo;
+
     private String descripcion;
+
+    private LocalDate fechaProgramada;
+
+    private LocalDate fechaRealizada;
+
     private String estado;
-    private String fecha;
 
     @ManyToOne
     @JoinColumn(name = "maquina_id", nullable = false)
@@ -25,11 +33,22 @@ public class OrdenMantenimiento {
     public OrdenMantenimiento() {
     }
 
-    public OrdenMantenimiento(Long id, String descripcion, String estado, String fecha, Maquina maquina, Tecnico tecnico) {
+    public OrdenMantenimiento(
+            Long id,
+            String tipo,
+            String descripcion,
+            LocalDate fechaProgramada,
+            LocalDate fechaRealizada,
+            String estado,
+            Maquina maquina,
+            Tecnico tecnico) {
+
         this.id = id;
+        this.tipo = tipo;
         this.descripcion = descripcion;
+        this.fechaProgramada = fechaProgramada;
+        this.fechaRealizada = fechaRealizada;
         this.estado = estado;
-        this.fecha = fecha;
         this.maquina = maquina;
         this.tecnico = tecnico;
     }
@@ -42,6 +61,14 @@ public class OrdenMantenimiento {
         this.id = id;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -50,20 +77,28 @@ public class OrdenMantenimiento {
         this.descripcion = descripcion;
     }
 
+    public LocalDate getFechaProgramada() {
+        return fechaProgramada;
+    }
+
+    public void setFechaProgramada(LocalDate fechaProgramada) {
+        this.fechaProgramada = fechaProgramada;
+    }
+
+    public LocalDate getFechaRealizada() {
+        return fechaRealizada;
+    }
+
+    public void setFechaRealizada(LocalDate fechaRealizada) {
+        this.fechaRealizada = fechaRealizada;
+    }
+
     public String getEstado() {
         return estado;
     }
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
     }
 
     public Maquina getMaquina() {

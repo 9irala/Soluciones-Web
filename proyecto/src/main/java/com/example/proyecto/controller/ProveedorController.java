@@ -11,7 +11,7 @@ import java.util.Optional;
 @RequestMapping("/api/proveedores")
 public class ProveedorController {
 
-     private final ProveedorService proveedorService;
+    private final ProveedorService proveedorService;
 
     public ProveedorController(ProveedorService proveedorService) {
         this.proveedorService = proveedorService;
@@ -44,5 +44,4 @@ public class ProveedorController {
     public void eliminar(@PathVariable Long id) {
         proveedorService.eliminar(id);
     }
-
 }

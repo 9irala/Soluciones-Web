@@ -11,19 +11,20 @@ public class Proveedor {
     private Long id;
 
     private String nombre;
-
     private String contacto;
-
     private String telefono;
+    private String email;
 
     public Proveedor() {
     }
 
-    public Proveedor(Long id, String nombre, String contacto, String telefono) {
+    public Proveedor(Long id, String nombre, String contacto,
+                     String telefono, String email) {
         this.id = id;
         this.nombre = nombre;
         this.contacto = contacto;
         this.telefono = telefono;
+        this.email = email;
     }
 
     public Long getId() {
@@ -58,4 +59,11 @@ public class Proveedor {
         this.telefono = telefono;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

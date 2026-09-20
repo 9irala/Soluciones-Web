@@ -13,7 +13,8 @@ public class OrdenMantenimientoController {
 
     private final OrdenMantenimientoService ordenService;
 
-    public OrdenMantenimientoController(OrdenMantenimientoService ordenService) {
+    public OrdenMantenimientoController(
+            OrdenMantenimientoService ordenService) {
         this.ordenService = ordenService;
     }
 
@@ -23,12 +24,16 @@ public class OrdenMantenimientoController {
     }
 
     @GetMapping("/{id}")
-    public Optional<OrdenMantenimiento> buscarPorId(@PathVariable Long id) {
+    public Optional<OrdenMantenimiento> buscarPorId(
+            @PathVariable Long id) {
+
         return ordenService.buscarPorId(id);
     }
 
     @PostMapping
-    public OrdenMantenimiento guardar(@RequestBody OrdenMantenimiento orden) {
+    public OrdenMantenimiento guardar(
+            @RequestBody OrdenMantenimiento orden) {
+
         return ordenService.guardar(orden);
     }
 
@@ -44,5 +49,4 @@ public class OrdenMantenimientoController {
     public void eliminar(@PathVariable Long id) {
         ordenService.eliminar(id);
     }
-
 }

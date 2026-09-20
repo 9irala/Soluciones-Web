@@ -42,10 +42,12 @@ public class OrdenMantenimientoService {
         Long tecnicoId = orden.getTecnico().getId();
 
         Maquina maquina = maquinaRepository.findById(maquinaId)
-                .orElseThrow(() -> new RuntimeException("Máquina no encontrada"));
+                .orElseThrow(() ->
+                        new RuntimeException("Máquina no encontrada"));
 
         Tecnico tecnico = tecnicoRepository.findById(tecnicoId)
-                .orElseThrow(() -> new RuntimeException("Técnico no encontrado"));
+                .orElseThrow(() ->
+                        new RuntimeException("Técnico no encontrado"));
 
         orden.setMaquina(maquina);
         orden.setTecnico(tecnico);
@@ -53,23 +55,32 @@ public class OrdenMantenimientoService {
         return ordenRepository.save(orden);
     }
 
-    public OrdenMantenimiento actualizar(Long id, OrdenMantenimiento orden) {
+    public OrdenMantenimiento actualizar(
+            Long id,
+            OrdenMantenimiento orden) {
 
-        OrdenMantenimiento existente = ordenRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Orden de mantenimiento no encontrada"));
+        OrdenMantenimiento existente =
+                ordenRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Orden de mantenimiento no encontrada"));
 
         Long maquinaId = orden.getMaquina().getId();
         Long tecnicoId = orden.getTecnico().getId();
 
         Maquina maquina = maquinaRepository.findById(maquinaId)
-                .orElseThrow(() -> new RuntimeException("Máquina no encontrada"));
+                .orElseThrow(() ->
+                        new RuntimeException("Máquina no encontrada"));
 
         Tecnico tecnico = tecnicoRepository.findById(tecnicoId)
-                .orElseThrow(() -> new RuntimeException("Técnico no encontrado"));
+                .orElseThrow(() ->
+                        new RuntimeException("Técnico no encontrado"));
 
+        existente.setTipo(orden.getTipo());
         existente.setDescripcion(orden.getDescripcion());
+        existente.setFechaProgramada(orden.getFechaProgramada());
+        existente.setFechaRealizada(orden.getFechaRealizada());
         existente.setEstado(orden.getEstado());
-        existente.setFecha(orden.getFecha());
         existente.setMaquina(maquina);
         existente.setTecnico(tecnico);
 

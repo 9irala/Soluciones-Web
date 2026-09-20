@@ -36,7 +36,8 @@ public class RepuestoService {
         Long proveedorId = repuesto.getProveedor().getId();
 
         Proveedor proveedor = proveedorRepository.findById(proveedorId)
-                .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
+                .orElseThrow(() ->
+                        new RuntimeException("Proveedor no encontrado"));
 
         repuesto.setProveedor(proveedor);
 
@@ -46,16 +47,19 @@ public class RepuestoService {
     public Repuesto actualizar(Long id, Repuesto repuesto) {
 
         Repuesto existente = repuestoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Repuesto no encontrado"));
+                .orElseThrow(() ->
+                        new RuntimeException("Repuesto no encontrado"));
 
         Long proveedorId = repuesto.getProveedor().getId();
 
         Proveedor proveedor = proveedorRepository.findById(proveedorId)
-                .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
+                .orElseThrow(() ->
+                        new RuntimeException("Proveedor no encontrado"));
 
         existente.setNombre(repuesto.getNombre());
-        existente.setDescripcion(repuesto.getDescripcion());
-        existente.setPrecio(repuesto.getPrecio());
+        existente.setCodigo(repuesto.getCodigo());
+        existente.setStock(repuesto.getStock());
+        existente.setPrecioUnitario(repuesto.getPrecioUnitario());
         existente.setProveedor(proveedor);
 
         return repuestoRepository.save(existente);
@@ -64,5 +68,4 @@ public class RepuestoService {
     public void eliminar(Long id) {
         repuestoRepository.deleteById(id);
     }
-
 }

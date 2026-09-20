@@ -10,7 +10,6 @@ import java.util.Optional;
 @Service
 public class ProveedorService {
 
-
     private final ProveedorRepository proveedorRepository;
 
     public ProveedorService(ProveedorRepository proveedorRepository) {
@@ -32,11 +31,13 @@ public class ProveedorService {
     public Proveedor actualizar(Long id, Proveedor proveedor) {
 
         Proveedor existente = proveedorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
+                .orElseThrow(() ->
+                        new RuntimeException("Proveedor no encontrado"));
 
         existente.setNombre(proveedor.getNombre());
         existente.setContacto(proveedor.getContacto());
         existente.setTelefono(proveedor.getTelefono());
+        existente.setEmail(proveedor.getEmail());
 
         return proveedorRepository.save(existente);
     }
@@ -44,5 +45,4 @@ public class ProveedorService {
     public void eliminar(Long id) {
         proveedorRepository.deleteById(id);
     }
-
 }

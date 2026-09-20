@@ -44,5 +44,4 @@ public class RepuestoController {
     public void eliminar(@PathVariable Long id) {
         repuestoService.eliminar(id);
     }
-
 }

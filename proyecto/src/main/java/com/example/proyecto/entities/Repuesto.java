@@ -12,9 +12,11 @@ public class Repuesto {
 
     private String nombre;
 
-    private String descripcion;
+    private String codigo;
 
-    private Double precio;
+    private Integer stock;
+
+    private Double precioUnitario;
 
     @ManyToOne
     @JoinColumn(name = "proveedor_id", nullable = false)
@@ -23,11 +25,14 @@ public class Repuesto {
     public Repuesto() {
     }
 
-    public Repuesto(Long id, String nombre, String descripcion, Double precio, Proveedor proveedor) {
+    public Repuesto(Long id, String nombre, String codigo,
+                    Integer stock, Double precioUnitario,
+                    Proveedor proveedor) {
         this.id = id;
         this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
+        this.codigo = codigo;
+        this.stock = stock;
+        this.precioUnitario = precioUnitario;
         this.proveedor = proveedor;
     }
 
@@ -47,20 +52,28 @@ public class Repuesto {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public Double getPrecio() {
-        return precio;
+    public Integer getStock() {
+        return stock;
     }
 
-    public void setPrecio(Double precio) {
-        this.precio = precio;
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Double getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(Double precioUnitario) {
+        this.precioUnitario = precioUnitario;
     }
 
     public Proveedor getProveedor() {
@@ -70,5 +83,4 @@ public class Repuesto {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
-
 }
