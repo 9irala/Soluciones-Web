@@ -2,6 +2,9 @@ package com.example.proyecto.controller;
 
 import com.example.proyecto.entities.Tecnico;
 import com.example.proyecto.service.TecnicoService;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,31 +22,29 @@ public class TecnicoController {
     }
 
     @GetMapping
-    public List<Tecnico> listarTodos() {
-        return tecnicoService.listarTodos();
+    public ResponseEntity<List<Tecnico>> listarTodos() {
+        return ResponseEntity.ok(tecnicoService.listarTodos());
     }
 
     @GetMapping("/{id}")
-    public Optional<Tecnico> buscarPorId(@PathVariable Long id) {
-        return tecnicoService.buscarPorId(id);
+    public ResponseEntity<Optional<Tecnico>> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(tecnicoService.buscarPorId(id));
     }
 
     @PostMapping
-    public Tecnico guardar(@RequestBody Tecnico tecnico) {
-        return tecnicoService.guardar(tecnico);
+    public ResponseEntity<Tecnico> guardar(@RequestBody Tecnico tecnico) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(tecnicoService.guardar(tecnico));
     }
 
     @PutMapping("/{id}")
-    public Tecnico actualizar(
-            @PathVariable Long id,
-            @RequestBody Tecnico tecnico) {
-
-        return tecnicoService.actualizar(id, tecnico);
+    public ResponseEntity<Tecnico> actualizar(@PathVariable Long id, @RequestBody Tecnico tecnico) {
+        return ResponseEntity.ok(tecnicoService.actualizar(id, tecnico));
     }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         tecnicoService.eliminar(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
 }
